@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>细菌分类系统</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        .footer-warning {
+
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            padding: 12px 20px;
+            font-family: "Microsoft YaHei", sans-serif;
+            font-size: 12px;
+            color: #6c757d;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .warning-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .warning-highlight {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .university-info {
+            margin-top: 5px;
+            font-size: 11px;
+        }
+
+        .contact-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .footer-warning {
+                background-color: #f8f9fa;
+                border-top: 1px solid #dee2e6;
+                padding: 12px 20px;
+                font-family: "Microsoft YaHei", sans-serif;
+                font-size: 12px;
+                color: #6c757d;
+                text-align: center;
+                box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+                z-index: 1000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo Section -->
+    <header class="logo-section">
+        <img src="../static/logo.png" class="logo" alt="Logo">
+    </header>
+
+    <!-- Header Section -->
+    <header class="header-content">
+        <div class="path-selector">
+            <input type="text" class="path-input" id="pathInput" placeholder="请选择目标路径" readonly>
+            <button class="action-btn" id="browseBtn">...</button>
+            <input type="file" id="directoryInput" webkitdirectory style="display: none;">
+        </div>
+    </header>
+
+    <div>
+    <!-- Main Content Section -->
+    <div class="main-container">
+        <!-- Sidebar Section -->
+        <aside class="sidebar-container">
+            <div class="sidebar" id="sidebar"></div>
+            <div class="resizer" id="resizer"></div>
+        </aside>
+
+        <!-- Right Section -->
+        <section class="right-section">
+            <!-- Operation Prompt Section -->
+            <div class="operation-prompt-section">
+                <div class="prompt-content" id="promptContent">
+                    <!-- 默认的提示内容 -->
+                    <p>请在地址树中选择原图文件，需包含.HDR.raw文件，如无背景图片分类结果仅供参考清空表单后需重新选择文件夹地址，</p>
+
+                    <p>测试版本运行较慢，若出现卡顿、长时间(>10min)无响应请重启容器</p>
+                     <p>测试版本仅进行大肠杆菌分类，请勿点击金黄色葡萄球菌分类按钮</p>
+
+                    <p>清空表单后需重新选择文件夹地址</p>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-section">
+                <div class="table-container">
+                    <table class="prediction-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">文件名</th>
+                                <th style="width: 30%;">大肠杆菌</th>
+                                <th style="width: 30%;">志贺菌</th>
+                                <th style="width: 10%;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-btn" id="importAllBtn">一键导入所有文件</button>
+
+                    <button class="action-btn" id="trainSVMBtn">大肠杆菌分类</button>
+                    <button class="action-btn" id="model1Btn">金黄色葡萄球菌分类</button>
+                    <button class="action-btn" id="exportResultBtn">结果导出</button>
+                    <button class="action-btn" id="clearAll">清空列表</button>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+    <!-- 添加文件上传表单 -->
+    <form id="classificationForm" action="/classify" method="post" enctype="multipart/form-data" style="display: none;">
+        <input type="file" name="file" multiple>
+    </form>
+
+    <!-- External JS File -->
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+    </div>
+
+      <!-- 底部警告信息 -->
+        <div class="footer-warning">
+            <div class="warning-content">
+                <span class="warning-highlight">警告：</span>
+                本软件为西安电子科技大学提供的<b>试用开发版本</b>，可能存在不稳定或未完善功能。
+                禁止用于商业用途或未经授权的分发。<br>
+
+                使用者需同意：本软件按"现状"提供，开发者不承担任何直接或间接责任。
+                试用期间如发现问题，请通过
+                <a href="mailto:support@browser.xidian.edu.cn" class="contact-link">support@browser.xidian.edu.cn</a>
+                反馈。<br>
+
+                <div class="university-info">
+                    © 2025 西安电子科技大学电子工程学院 | 版本号: v0.1.0-beta
+                </div>
+            </div>
+            <div style="font-size: 10px; margin-top: 3px;">
+            陕ICP备XXXXXXXX号 | 陕公网安备XXXXXXXX号
+            </div>
+        </div>
+
+
+</body>
+</html>
